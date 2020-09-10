@@ -26,6 +26,15 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         labelTitle = new javax.swing.JLabel();
+        labelUsernameBox = new javax.swing.JLabel();
+        labelPasswordBox = new javax.swing.JLabel();
+        buttonLogin = new javax.swing.JButton();
+        labelLoginErrorMessage = new javax.swing.JLabel();
+        textfieldUsernameBox = new javax.swing.JTextField();
+        textfieldPasswordBox = new javax.swing.JPasswordField();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        toolbarFile = new javax.swing.JMenu();
+        fileNewUser = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -33,13 +42,53 @@ public class Login extends javax.swing.JFrame {
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelTitle.setText("Login");
 
+        labelUsernameBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelUsernameBox.setText("Username:");
+
+        labelPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelPasswordBox.setText("Password:");
+
+        buttonLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonLogin.setText("Login");
+
+        labelLoginErrorMessage.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labelLoginErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
+        labelLoginErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelLoginErrorMessage.setText("Failed to login. Username or Password incorrect.");
+        labelLoginErrorMessage.setMaximumSize(new java.awt.Dimension(331, 17));
+        labelLoginErrorMessage.setPreferredSize(new java.awt.Dimension(331, 17));
+
+        toolbarFile.setText("File");
+
+        fileNewUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        fileNewUser.setText("New User");
+        toolbarFile.add(fileNewUser);
+
+        jMenuBar1.add(toolbarFile);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelLoginErrorMessage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
+                    .addComponent(labelTitle, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelPasswordBox)
+                            .addComponent(labelUsernameBox))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textfieldUsernameBox)
+                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))))
+                .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(buttonLogin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -47,7 +96,19 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelTitle)
-                .addContainerGap(260, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelUsernameBox)
+                    .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelPasswordBox)
+                    .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
+                .addComponent(buttonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelLoginErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,6 +150,15 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonLogin;
+    private javax.swing.JMenuItem fileNewUser;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JLabel labelLoginErrorMessage;
+    private javax.swing.JLabel labelPasswordBox;
     private javax.swing.JLabel labelTitle;
+    private javax.swing.JLabel labelUsernameBox;
+    private javax.swing.JPasswordField textfieldPasswordBox;
+    private javax.swing.JTextField textfieldUsernameBox;
+    private javax.swing.JMenu toolbarFile;
     // End of variables declaration//GEN-END:variables
 }
