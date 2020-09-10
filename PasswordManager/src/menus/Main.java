@@ -5,17 +5,22 @@
  */
 package menus;
 
+import data.User;
+
 /**
  *
  * @author DYLAN MCADAM
  */
 public class Main extends javax.swing.JFrame {
+    
+    private User loggedInUser = null;
 
     /**
      * Creates new form Main
      */
     public Main() {
         Login login = new Login(null, true);
+        login.setReferences(loggedInUser);
         login.setVisible(true);
         initComponents();
     }

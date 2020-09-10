@@ -5,6 +5,7 @@
  */
 package menus;
 
+import data.User;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -13,6 +14,8 @@ import java.awt.event.WindowEvent;
  * @author DYLAN MCADAM
  */
 public class Login extends javax.swing.JDialog {
+
+    private User user;
 
     /**
      * Creates new form Login
@@ -68,6 +71,11 @@ public class Login extends javax.swing.JDialog {
 
         fileCreateUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         fileCreateUser.setText("Create New User");
+        fileCreateUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileCreateUserActionPerformed(evt);
+            }
+        });
         toolbarFile.add(fileCreateUser);
 
         jMenuBar1.add(toolbarFile);
@@ -123,6 +131,10 @@ public class Login extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fileCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileCreateUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fileCreateUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -177,4 +189,9 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JTextField textfieldUsernameBox;
     private javax.swing.JMenu toolbarFile;
     // End of variables declaration//GEN-END:variables
+
+    public void setReferences(User user){
+        this.user = user;
+    }
+    
 }
