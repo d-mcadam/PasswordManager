@@ -17,7 +17,6 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         Login login = new Login(null, true);
         login.setVisible(true);
-        System.out.println("THIS LINE HAS BEEN TRIGGERED");
         initComponents();
     }
 
