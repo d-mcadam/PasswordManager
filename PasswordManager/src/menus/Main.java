@@ -41,7 +41,6 @@ public class Main extends javax.swing.JFrame {
         textfieldAccountTitle = new javax.swing.JTextField();
         textfieldUsernameBox = new javax.swing.JTextField();
         textfieldPasswordBox = new javax.swing.JPasswordField();
-        labelCreatedDate = new javax.swing.JLabel();
         labelDisplayCreatedDate = new javax.swing.JLabel();
         buttonTypeUsername = new javax.swing.JButton();
         buttonTypePassword = new javax.swing.JButton();
@@ -92,11 +91,9 @@ public class Main extends javax.swing.JFrame {
         labelPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPasswordBox.setText("Password:");
 
-        labelCreatedDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelCreatedDate.setText("Created:");
-
         labelDisplayCreatedDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDisplayCreatedDate.setText("DD / MM / YY");
+        labelDisplayCreatedDate.setToolTipText("The date this record was created");
 
         buttonTypeUsername.setText("Type");
 
@@ -173,10 +170,7 @@ public class Main extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                                             .addComponent(textfieldPasswordBox)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(textfieldAccountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(labelCreatedDate)))))
+                                            .addComponent(textfieldAccountTitle))))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(labelDisplayCreatedDate, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
@@ -227,7 +221,6 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelAccountTitleBox)
                             .addComponent(textfieldAccountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelCreatedDate)
                             .addComponent(labelDisplayCreatedDate))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -320,7 +313,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel labelAccountTitleBox;
     private javax.swing.JLabel labelCoordinatesSection;
-    private javax.swing.JLabel labelCreatedDate;
     private javax.swing.JLabel labelDisplayCreatedDate;
     private javax.swing.JLabel labelPasswordBox;
     private javax.swing.JLabel labelPasswordPoint;

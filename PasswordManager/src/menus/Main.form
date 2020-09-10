@@ -61,11 +61,7 @@
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="textfieldUsernameBox" pref="150" max="32767" attributes="0"/>
                                           <Component id="textfieldPasswordBox" alignment="0" max="32767" attributes="0"/>
-                                          <Group type="102" attributes="0">
-                                              <Component id="textfieldAccountTitle" min="-2" pref="79" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="labelCreatedDate" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="textfieldAccountTitle" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -134,7 +130,6 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="labelAccountTitleBox" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textfieldAccountTitle" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelCreatedDate" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="labelDisplayCreatedDate" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -287,20 +282,13 @@
     </Component>
     <Component class="javax.swing.JPasswordField" name="textfieldPasswordBox">
     </Component>
-    <Component class="javax.swing.JLabel" name="labelCreatedDate">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Tahoma" size="14" style="0"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Created:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JLabel" name="labelDisplayCreatedDate">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="DD / MM / YY"/>
+        <Property name="toolTipText" type="java.lang.String" value="The date this record was created"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonTypeUsername">
