@@ -55,6 +55,7 @@ public class Main extends javax.swing.JFrame {
         textfieldPasswordX = new javax.swing.JTextField();
         textFieldPasswordY = new javax.swing.JTextField();
         checkboxLockRecordCoordinates = new javax.swing.JCheckBox();
+        labelLoggedInUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +134,8 @@ public class Main extends javax.swing.JFrame {
 
         checkboxLockRecordCoordinates.setText("<html>Lock all coordinates<br>(Only for this record)</html>");
 
+        labelLoggedInUser.setText("Username goes here");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -155,7 +158,6 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkboxShowPasswords)
                             .addComponent(checkboxDisableAutotypeConfirmation)
                             .addComponent(checkboxAutoUseCoordinates)
                             .addGroup(layout.createSequentialGroup()
@@ -193,13 +195,17 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(textFieldPasswordY))
                                 .addGap(18, 18, 18)
                                 .addComponent(checkboxLockRecordCoordinates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(checkboxShowPasswords)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(labelLoggedInUser)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(buttonCreateRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -208,7 +214,9 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(buttonEditRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonDeleteRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkboxShowPasswords)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkboxShowPasswords)
+                            .addComponent(labelLoggedInUser))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(checkboxDisableAutotypeConfirmation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -240,9 +248,9 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelXPointColumn)
                             .addComponent(labelYPointColumn))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelUsernamePoint)
                                     .addComponent(textfieldUsernameX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -252,10 +260,8 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(labelPasswordPoint)
                                     .addComponent(textfieldPasswordX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldPasswordY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(checkboxLockRecordCoordinates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(scrollpaneAccountList, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(checkboxLockRecordCoordinates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(scrollpaneAccountList, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -314,6 +320,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel labelAccountTitleBox;
     private javax.swing.JLabel labelCoordinatesSection;
     private javax.swing.JLabel labelDisplayCreatedDate;
+    private javax.swing.JLabel labelLoggedInUser;
     private javax.swing.JLabel labelPasswordBox;
     private javax.swing.JLabel labelPasswordPoint;
     private javax.swing.JLabel labelUsernameBox;
