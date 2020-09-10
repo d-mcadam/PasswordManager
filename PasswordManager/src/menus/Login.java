@@ -55,13 +55,11 @@ public class Login extends javax.swing.JFrame {
         labelLoginErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
         labelLoginErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelLoginErrorMessage.setText("Failed to login. Username or Password incorrect.");
-        labelLoginErrorMessage.setMaximumSize(new java.awt.Dimension(331, 17));
-        labelLoginErrorMessage.setPreferredSize(new java.awt.Dimension(331, 17));
 
         toolbarFile.setText("File");
 
         fileNewUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
-        fileNewUser.setText("New User");
+        fileNewUser.setText("Create New User");
         toolbarFile.add(fileNewUser);
 
         jMenuBar1.add(toolbarFile);
@@ -94,7 +92,7 @@ public class Login extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(25, 25, 25)
                 .addComponent(labelTitle)
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -108,7 +106,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(buttonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelLoginErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
