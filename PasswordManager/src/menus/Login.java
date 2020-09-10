@@ -132,7 +132,8 @@ public class Login extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void fileCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileCreateUserActionPerformed
-        // TODO add your handling code here:
+        NewUser newUser = new NewUser(null, true);
+        newUser.setVisible(true);
     }//GEN-LAST:event_fileCreateUserActionPerformed
 
     /**
