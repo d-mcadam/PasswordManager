@@ -5,6 +5,7 @@
  */
 package menus;
 
+import data.Storage;
 import data.User;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -16,12 +17,14 @@ import java.awt.event.WindowEvent;
 public class Login extends javax.swing.JDialog {
 
     private User user;
+    private Storage storage;
 
     /**
      * Creates new form Login
      */
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        storage = new Storage();
         initComponents();
         this.addWindowListener(new WindowAdapter(){
             @Override
@@ -133,6 +136,7 @@ public class Login extends javax.swing.JDialog {
 
     private void fileCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileCreateUserActionPerformed
         NewUser newUser = new NewUser(null, true);
+        newUser.setReferences(storage);
         newUser.setVisible(true);
     }//GEN-LAST:event_fileCreateUserActionPerformed
 
