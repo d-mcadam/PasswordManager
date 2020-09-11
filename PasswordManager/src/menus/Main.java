@@ -25,6 +25,7 @@ public class Main extends javax.swing.JFrame {
         login.setVisible(true);
         this.setTitle("Logged in as: " + this.loggedInUser.getUsername());
         initComponents();
+        this.textfieldPasswordBox.setEchoChar('\u25cf');
     }
 
     /**
@@ -69,6 +70,11 @@ public class Main extends javax.swing.JFrame {
 
         buttonCreateRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonCreateRecord.setText("New Account Info");
+        buttonCreateRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreateRecordActionPerformed(evt);
+            }
+        });
 
         buttonEditRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonEditRecord.setText("Edit");
@@ -272,6 +278,10 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void buttonCreateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateRecordActionPerformed
+        CreateNewAccountInfo();
+    }//GEN-LAST:event_buttonCreateRecordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -339,4 +349,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField textfieldUsernameX;
     private javax.swing.JTextField textfieldUsernameY;
     // End of variables declaration//GEN-END:variables
+
+    private void CreateNewAccountInfo() {
+        NewAccount newAccount = new NewAccount(null, true);
+        newAccount.setReferences(this.loggedInUser);
+        newAccount.setVisible(true);
+    }
+    
 }
