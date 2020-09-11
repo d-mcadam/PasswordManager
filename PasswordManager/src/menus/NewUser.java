@@ -5,18 +5,29 @@
  */
 package menus;
 
+import data.Storage;
+import data.User;
+import java.util.Arrays;
+import javax.swing.UIManager;
+import utilities.ImageUtilities;
+import utilities.PasswordUtilities;
+
 /**
  *
  * @author DYLAN MCADAM
  */
 public class NewUser extends javax.swing.JDialog {
 
+    private Storage storage;
+    
     /**
      * Creates new form NewUser
      */
     public NewUser(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.textfieldPasswordBox.setEchoChar('\u25cf');
+        this.textfieldConfirmPasswordBox.setEchoChar('\u25cf');
     }
 
     /**
@@ -35,6 +46,9 @@ public class NewUser extends javax.swing.JDialog {
         textfieldConfirmPasswordBox = new javax.swing.JPasswordField();
         buttonCreateNewUser = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
+        labelUsernameIcon = new javax.swing.JLabel();
+        labelPasswordIcon = new javax.swing.JLabel();
+        checkboxShowPasswords = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -51,11 +65,66 @@ public class NewUser extends javax.swing.JDialog {
         labelConfirmPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelConfirmPasswordBox.setText("Confirm Password:");
 
+        textfieldUsernameBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameBoxFocusGained(evt);
+            }
+        });
+        textfieldUsernameBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textfieldUsernameBoxKeyReleased(evt);
+            }
+        });
+
+        textfieldPasswordBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldPasswordBoxFocusGained(evt);
+            }
+        });
+        textfieldPasswordBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textfieldPasswordBoxKeyReleased(evt);
+            }
+        });
+
+        textfieldConfirmPasswordBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldConfirmPasswordBoxFocusGained(evt);
+            }
+        });
+        textfieldConfirmPasswordBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textfieldConfirmPasswordBoxKeyReleased(evt);
+            }
+        });
+
         buttonCreateNewUser.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buttonCreateNewUser.setText("Create");
+        buttonCreateNewUser.setEnabled(false);
+        buttonCreateNewUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreateNewUserActionPerformed(evt);
+            }
+        });
 
         buttonCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buttonCancel.setText("Cancel");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
+
+        labelUsernameIcon.setToolTipText("Username already exists.");
+
+        labelPasswordIcon.setToolTipText("Passwords do not match.");
+
+        checkboxShowPasswords.setText("Show passwords");
+        checkboxShowPasswords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxShowPasswordsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -66,20 +135,28 @@ public class NewUser extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonCreateNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelPasswordBox)
                             .addComponent(labelUsernameBox)
                             .addComponent(labelConfirmPasswordBox))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(textfieldConfirmPasswordBox, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonCreateNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(checkboxShowPasswords)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(textfieldConfirmPasswordBox, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(labelPasswordIcon)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelUsernameIcon)))))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -90,24 +167,68 @@ public class NewUser extends javax.swing.JDialog {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelUsernameBox)
-                    .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelUsernameIcon))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPasswordBox)
                     .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelConfirmPasswordBox)
-                    .addComponent(textfieldConfirmPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonCreateNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(labelConfirmPasswordBox)
+                            .addComponent(textfieldConfirmPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkboxShowPasswords)
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonCreateNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(labelPasswordIcon))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void buttonCreateNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateNewUserActionPerformed
+        CreateNewUser();
+    }//GEN-LAST:event_buttonCreateNewUserActionPerformed
+
+    private void textfieldUsernameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxFocusGained
+        this.textfieldUsernameBox.selectAll();
+    }//GEN-LAST:event_textfieldUsernameBoxFocusGained
+
+    private void textfieldPasswordBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordBoxFocusGained
+        this.textfieldPasswordBox.selectAll();
+    }//GEN-LAST:event_textfieldPasswordBoxFocusGained
+
+    private void textfieldConfirmPasswordBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldConfirmPasswordBoxFocusGained
+        this.textfieldConfirmPasswordBox.selectAll();
+    }//GEN-LAST:event_textfieldConfirmPasswordBoxFocusGained
+
+    private void textfieldUsernameBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxKeyReleased
+        checkSaveEligibility();
+    }//GEN-LAST:event_textfieldUsernameBoxKeyReleased
+
+    private void textfieldPasswordBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfieldPasswordBoxKeyReleased
+        checkSaveEligibility();
+    }//GEN-LAST:event_textfieldPasswordBoxKeyReleased
+
+    private void textfieldConfirmPasswordBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfieldConfirmPasswordBoxKeyReleased
+        checkSaveEligibility();
+    }//GEN-LAST:event_textfieldConfirmPasswordBoxKeyReleased
+
+    private void checkboxShowPasswordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordsActionPerformed
+        boolean showPasswords = this.checkboxShowPasswords.isSelected();
+        this.textfieldPasswordBox.setEchoChar(showPasswords ? '\u0000' : '\u25cf');
+        this.textfieldConfirmPasswordBox.setEchoChar(showPasswords ? '\u0000' : '\u25cf');
+    }//GEN-LAST:event_checkboxShowPasswordsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,12 +275,51 @@ public class NewUser extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonCreateNewUser;
+    private javax.swing.JCheckBox checkboxShowPasswords;
     private javax.swing.JLabel labelConfirmPasswordBox;
     private javax.swing.JLabel labelPasswordBox;
+    private javax.swing.JLabel labelPasswordIcon;
     private javax.swing.JLabel labelTitle;
     private javax.swing.JLabel labelUsernameBox;
+    private javax.swing.JLabel labelUsernameIcon;
     private javax.swing.JPasswordField textfieldConfirmPasswordBox;
     private javax.swing.JPasswordField textfieldPasswordBox;
     private javax.swing.JTextField textfieldUsernameBox;
     // End of variables declaration//GEN-END:variables
+
+    public void setReferences(Storage storage){
+        this.storage = storage;
+    }
+    
+    private void checkSaveEligibility(){
+        String enteredUsername = this.textfieldUsernameBox.getText().trim();
+        char[] enteredPassword = this.textfieldPasswordBox.getPassword();
+        char[] confirmPassword = this.textfieldConfirmPasswordBox.getPassword();
+        
+        boolean textInFields = !enteredUsername.equals("") && enteredPassword.length > 0 && confirmPassword.length > 0;
+        boolean usernameIsUnique = !storage.getUsers().stream().anyMatch(user -> user.getUsername().equals(enteredUsername));
+        boolean passwordsMatch = Arrays.equals(enteredPassword, confirmPassword);
+        
+        this.buttonCreateNewUser.setEnabled(textInFields && usernameIsUnique && passwordsMatch);
+        this.buttonCreateNewUser.setToolTipText(
+                !textInFields ? "All fields require values." : 
+                !usernameIsUnique ? "Username already exists." : 
+                !passwordsMatch ? "Passwords do not match." : "Create the new user");
+        
+        this.labelUsernameIcon.setIcon(!usernameIsUnique ? ImageUtilities.getFinalIcon(UIManager.getIcon("OptionPane.warningIcon"), 27, 27) : null);
+        this.labelPasswordIcon.setIcon(!passwordsMatch ? ImageUtilities.getFinalIcon(UIManager.getIcon("OptionPane.errorIcon"), 27, 27) : null);
+    }
+
+    private void CreateNewUser() {
+        String username = this.textfieldUsernameBox.getText().trim();
+        char[] inputPassword = this.textfieldPasswordBox.getPassword();
+        byte[] salt = PasswordUtilities.generateSalt();
+        
+        String securePassword = PasswordUtilities.generateSecurePassword(Arrays.toString(inputPassword), salt);
+        
+        User user = new User(username, securePassword, salt);
+        this.storage.addUser(user);
+        this.dispose();
+    }
+    
 }

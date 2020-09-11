@@ -28,23 +28,34 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="labelTitle" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
+                      <Component id="buttonCreateNewUser" min="-2" pref="200" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="buttonCancel" min="-2" pref="200" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="labelPasswordBox" min="-2" max="-2" attributes="0"/>
                           <Component id="labelUsernameBox" min="-2" max="-2" attributes="0"/>
                           <Component id="labelConfirmPasswordBox" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="textfieldPasswordBox" alignment="0" pref="200" max="32767" attributes="0"/>
-                          <Component id="textfieldUsernameBox" alignment="0" pref="200" max="32767" attributes="0"/>
-                          <Component id="textfieldConfirmPasswordBox" pref="200" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="checkboxShowPasswords" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Component id="textfieldPasswordBox" alignment="0" pref="200" max="32767" attributes="0"/>
+                                  <Component id="textfieldUsernameBox" alignment="0" pref="200" max="32767" attributes="0"/>
+                                  <Component id="textfieldConfirmPasswordBox" pref="200" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="labelPasswordIcon" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="labelUsernameIcon" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="buttonCreateNewUser" min="-2" pref="200" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="buttonCancel" min="-2" pref="200" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
@@ -60,6 +71,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="labelUsernameBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textfieldUsernameBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelUsernameIcon" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -67,14 +79,21 @@
                   <Component id="textfieldPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelConfirmPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textfieldConfirmPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="buttonCreateNewUser" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
-                  <Component id="buttonCancel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labelConfirmPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textfieldConfirmPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="checkboxShowPasswords" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="buttonCreateNewUser" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="buttonCancel" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="labelPasswordIcon" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
@@ -116,10 +135,22 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldUsernameBox">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldUsernameBoxFocusGained"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textfieldUsernameBoxKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="textfieldPasswordBox">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldPasswordBoxFocusGained"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textfieldPasswordBoxKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="textfieldConfirmPasswordBox">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldConfirmPasswordBoxFocusGained"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textfieldConfirmPasswordBoxKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCreateNewUser">
       <Properties>
@@ -127,7 +158,11 @@
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Create"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCreateNewUserActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
@@ -136,6 +171,27 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelUsernameIcon">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Username already exists."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelPasswordIcon">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Passwords do not match."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkboxShowPasswords">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Show passwords"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxShowPasswordsActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -5,18 +5,35 @@
  */
 package menus;
 
+import data.Storage;
+import data.User;
+import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.Arrays;
+import utilities.PasswordUtilities;
+
 /**
  *
  * @author DYLAN MCADAM
  */
 public class Login extends javax.swing.JDialog {
 
+    private final Storage storage;
+    private Main menuParent;
+
     /**
      * Creates new form Login
      */
     public Login(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        storage = new Storage();
         initComponents();
+        this.addWindowListener(new WindowAdapter(){
+            @Override
+            public void windowClosing(WindowEvent e){ System.exit(0); }
+        });
+        this.textfieldPasswordBox.setEchoChar('\u25cf');
     }
 
     /**
@@ -33,11 +50,12 @@ public class Login extends javax.swing.JDialog {
         textfieldPasswordBox = new javax.swing.JPasswordField();
         buttonLogin = new javax.swing.JButton();
         labelErrorMessage = new javax.swing.JLabel();
+        checkboxShowPassword = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         toolbarFile = new javax.swing.JMenu();
         fileCreateUser = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
 
         labelTitle.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         labelTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -46,21 +64,50 @@ public class Login extends javax.swing.JDialog {
         labelUsernameBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelUsernameBox.setText("Username:");
 
+        textfieldUsernameBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameBoxFocusGained(evt);
+            }
+        });
+
         labelPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPasswordBox.setText("Password:");
 
+        textfieldPasswordBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldPasswordBoxFocusGained(evt);
+            }
+        });
+
         buttonLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buttonLogin.setText("Login");
+        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLoginActionPerformed(evt);
+            }
+        });
 
         labelErrorMessage.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
         labelErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelErrorMessage.setText("Username or Password incorrect");
 
+        checkboxShowPassword.setText("Show password");
+        checkboxShowPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxShowPasswordActionPerformed(evt);
+            }
+        });
+
         toolbarFile.setText("File");
 
         fileCreateUser.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
         fileCreateUser.setText("Create New User");
+        fileCreateUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fileCreateUserActionPerformed(evt);
+            }
+        });
         toolbarFile.add(fileCreateUser);
 
         jMenuBar1.add(toolbarFile);
@@ -84,7 +131,8 @@ public class Login extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkboxShowPassword))
                         .addContainerGap(25, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -106,15 +154,39 @@ public class Login extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPasswordBox)
                     .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkboxShowPassword)
                 .addGap(25, 25, 25)
                 .addComponent(buttonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
+                .addGap(15, 15, 15)
                 .addComponent(labelErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(50, 50, 50))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void fileCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fileCreateUserActionPerformed
+        NewUser newUser = new NewUser(null, true);
+        newUser.setReferences(storage);
+        newUser.setVisible(true);
+    }//GEN-LAST:event_fileCreateUserActionPerformed
+
+    private void checkboxShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordActionPerformed
+        this.textfieldPasswordBox.setEchoChar(this.checkboxShowPassword.isSelected() ? '\u0000' : '\u25cf');
+    }//GEN-LAST:event_checkboxShowPasswordActionPerformed
+
+    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
+        UserLogin();
+    }//GEN-LAST:event_buttonLoginActionPerformed
+
+    private void textfieldUsernameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxFocusGained
+        this.textfieldUsernameBox.selectAll();
+    }//GEN-LAST:event_textfieldUsernameBoxFocusGained
+
+    private void textfieldPasswordBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordBoxFocusGained
+        this.textfieldPasswordBox.selectAll();
+    }//GEN-LAST:event_textfieldPasswordBoxFocusGained
 
     /**
      * @param args the command line arguments
@@ -160,6 +232,7 @@ public class Login extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogin;
+    private javax.swing.JCheckBox checkboxShowPassword;
     private javax.swing.JMenuItem fileCreateUser;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel labelErrorMessage;
@@ -170,4 +243,30 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JTextField textfieldUsernameBox;
     private javax.swing.JMenu toolbarFile;
     // End of variables declaration//GEN-END:variables
+
+    public void setReferences(Main parent) {
+        this.menuParent = parent;
+    }
+    
+    private void UserLogin() {
+        this.labelErrorMessage.setSize(new Dimension(this.labelErrorMessage.getWidth(), 0));
+        
+        String username = this.textfieldUsernameBox.getText().trim();
+        char[] password = this.textfieldPasswordBox.getPassword();
+    
+        for (User user : storage.getUsers())
+            if (user.getUsername().equals(username)){
+                
+                String securePassword = PasswordUtilities.generateSecurePassword(Arrays.toString(password), user.getSalt());
+                if (securePassword.equals(user.getSecurePassword())){
+                    this.menuParent.loggedInUser = user;
+                    this.dispose();
+                }
+                
+                break;
+            }
+        
+        this.labelErrorMessage.setSize(new Dimension(this.labelErrorMessage.getWidth(), 30));
+    }
+
 }
