@@ -5,11 +5,18 @@
  */
 package menus;
 
+import data.User;
+import java.util.Arrays;
+import javax.swing.UIManager;
+import utilities.ImageUtilities;
+
 /**
  *
  * @author DYLAN MCADAM
  */
 public class NewAccount extends javax.swing.JDialog {
+    
+    private User thisUser;
 
     /**
      * Creates new form NewAccount
@@ -17,6 +24,7 @@ public class NewAccount extends javax.swing.JDialog {
     public NewAccount(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.textfieldPasswordBox.setEchoChar('\u25cf');
     }
 
     /**
@@ -33,8 +41,9 @@ public class NewAccount extends javax.swing.JDialog {
         textfieldAccountTitle = new javax.swing.JTextField();
         textfieldUsernameBox = new javax.swing.JTextField();
         textfieldPasswordBox = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        buttonCreateRecord = new javax.swing.JButton();
+        buttonCancel = new javax.swing.JButton();
+        labelAccountNameIcon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -51,11 +60,52 @@ public class NewAccount extends javax.swing.JDialog {
         labelPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPasswordBox.setText("Password:");
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton1.setText("Create");
+        textfieldAccountTitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldAccountTitleFocusGained(evt);
+            }
+        });
+        textfieldAccountTitle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textfieldAccountTitleKeyReleased(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("Cancel");
+        textfieldUsernameBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameBoxFocusGained(evt);
+            }
+        });
+        textfieldUsernameBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textfieldUsernameBoxKeyReleased(evt);
+            }
+        });
+
+        textfieldPasswordBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldPasswordBoxFocusGained(evt);
+            }
+        });
+        textfieldPasswordBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                textfieldPasswordBoxKeyReleased(evt);
+            }
+        });
+
+        buttonCreateRecord.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonCreateRecord.setText("Create");
+        buttonCreateRecord.setEnabled(false);
+
+        buttonCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        buttonCancel.setText("Cancel");
+        buttonCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelActionPerformed(evt);
+            }
+        });
+
+        labelAccountNameIcon.setToolTipText("Username already exists.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -72,15 +122,18 @@ public class NewAccount extends javax.swing.JDialog {
                             .addComponent(labelPasswordBox))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(textfieldAccountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(textfieldAccountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(labelAccountNameIcon)))))
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonCreateRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -89,9 +142,11 @@ public class NewAccount extends javax.swing.JDialog {
                 .addGap(25, 25, 25)
                 .addComponent(labelTitle)
                 .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelAccountTitleBox)
-                    .addComponent(textfieldAccountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelAccountTitleBox)
+                        .addComponent(textfieldAccountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labelAccountNameIcon))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelUsernameBox)
@@ -102,13 +157,41 @@ public class NewAccount extends javax.swing.JDialog {
                     .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(buttonCreateRecord)
+                    .addComponent(buttonCancel))
                 .addGap(15, 15, 15))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void textfieldAccountTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldAccountTitleFocusGained
+        this.textfieldAccountTitle.selectAll();
+    }//GEN-LAST:event_textfieldAccountTitleFocusGained
+
+    private void textfieldUsernameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxFocusGained
+        this.textfieldUsernameBox.selectAll();
+    }//GEN-LAST:event_textfieldUsernameBoxFocusGained
+
+    private void textfieldPasswordBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordBoxFocusGained
+        this.textfieldPasswordBox.selectAll();
+    }//GEN-LAST:event_textfieldPasswordBoxFocusGained
+
+    private void textfieldAccountTitleKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfieldAccountTitleKeyReleased
+        checkSaveEligibility();
+    }//GEN-LAST:event_textfieldAccountTitleKeyReleased
+
+    private void textfieldUsernameBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxKeyReleased
+        checkSaveEligibility();
+    }//GEN-LAST:event_textfieldUsernameBoxKeyReleased
+
+    private void textfieldPasswordBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfieldPasswordBoxKeyReleased
+        checkSaveEligibility();
+    }//GEN-LAST:event_textfieldPasswordBoxKeyReleased
+
+    private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_buttonCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,8 +236,9 @@ public class NewAccount extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton buttonCancel;
+    private javax.swing.JButton buttonCreateRecord;
+    private javax.swing.JLabel labelAccountNameIcon;
     private javax.swing.JLabel labelAccountTitleBox;
     private javax.swing.JLabel labelPasswordBox;
     private javax.swing.JLabel labelTitle;
@@ -163,4 +247,25 @@ public class NewAccount extends javax.swing.JDialog {
     private javax.swing.JPasswordField textfieldPasswordBox;
     private javax.swing.JTextField textfieldUsernameBox;
     // End of variables declaration//GEN-END:variables
+
+    public void setReferences(User loggedInUser) {
+        thisUser = loggedInUser;
+    }
+    
+    private void checkSaveEligibility() {
+        String accountName = this.textfieldAccountTitle.getText().trim();
+        String accountUsername = this.textfieldUsernameBox.getText().trim();
+        char[] accountPassword = this.textfieldPasswordBox.getPassword();
+        
+        boolean textInFields = !accountName.equals("") && !accountUsername.equals("") && accountPassword.length > 0;
+        boolean accountNameIsUnique = !this.thisUser.getRecordObjects().stream().anyMatch(record -> record.getTitle().equals(accountName));
+        
+        this.buttonCreateRecord.setEnabled(textInFields && accountNameIsUnique);
+        this.buttonCreateRecord.setToolTipText(
+                !textInFields ? "All fields require values." : 
+                !accountNameIsUnique ? "Account name already exists." : "Create the new record");
+        
+        this.labelAccountNameIcon.setIcon(!accountNameIsUnique ? ImageUtilities.getFinalIcon(UIManager.getIcon("OptionPane.errorIcon"), 27, 27) : null);
+    }
+
 }
