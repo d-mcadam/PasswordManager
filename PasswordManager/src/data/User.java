@@ -14,17 +14,21 @@ import java.util.ArrayList;
 public class User {
     
     private final String username;
-    private final String saltedPassword;
+    private final byte[] salt;
+    private final String securePassword;
     private final ArrayList<Record> recordObjects = new ArrayList();
     
-    public User(String username, String saltedPassword){
+    public User(String username, String securePassword, byte[] salt){
         this.username = username;
-        this.saltedPassword = saltedPassword;
+        this.securePassword = securePassword;
+        this.salt = salt;
     }
     
     public String getUsername(){ return this.username; }
     
-    public String getSaltedPassword(){ return this.saltedPassword; }
+    public String getSecurePassword(){ return this.securePassword; }
+    
+    public byte[] getSalt(){ return this.salt; }
     
     public ArrayList<Record> getRecordObjects(){ return this.recordObjects; }
     public boolean addRecordObject(Record record){ return this.recordObjects.add(record); }
