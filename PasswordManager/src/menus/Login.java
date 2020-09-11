@@ -30,6 +30,7 @@ public class Login extends javax.swing.JDialog {
             @Override
             public void windowClosing(WindowEvent e){ System.exit(0); }
         });
+        this.textfieldPasswordBox.setEchoChar('\u25cf');
     }
 
     /**
