@@ -6,9 +6,11 @@
 package menus;
 
 import data.Storage;
+import data.User;
 import java.util.Arrays;
 import javax.swing.UIManager;
 import utilities.ImageUtilities;
+import utilities.PasswordUtilities;
 
 /**
  *
@@ -24,6 +26,8 @@ public class NewUser extends javax.swing.JDialog {
     public NewUser(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.textfieldPasswordBox.setEchoChar('\u25cf');
+        this.textfieldConfirmPasswordBox.setEchoChar('\u25cf');
     }
 
     /**
@@ -44,6 +48,7 @@ public class NewUser extends javax.swing.JDialog {
         buttonCancel = new javax.swing.JButton();
         labelUsernameIcon = new javax.swing.JLabel();
         labelPasswordIcon = new javax.swing.JLabel();
+        checkboxShowPasswords = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -114,6 +119,13 @@ public class NewUser extends javax.swing.JDialog {
 
         labelPasswordIcon.setToolTipText("Passwords do not match.");
 
+        checkboxShowPasswords.setText("Show passwords");
+        checkboxShowPasswords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxShowPasswordsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,23 +135,28 @@ public class NewUser extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(buttonCreateNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelPasswordBox)
                             .addComponent(labelUsernameBox)
                             .addComponent(labelConfirmPasswordBox))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(textfieldConfirmPasswordBox, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(labelPasswordIcon)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelUsernameIcon))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(buttonCreateNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(checkboxShowPasswords)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                    .addComponent(textfieldConfirmPasswordBox, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addComponent(labelPasswordIcon)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelUsernameIcon)))))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -162,6 +179,8 @@ public class NewUser extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelConfirmPasswordBox)
                             .addComponent(textfieldConfirmPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkboxShowPasswords)
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonCreateNewUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,6 +223,12 @@ public class NewUser extends javax.swing.JDialog {
     private void textfieldConfirmPasswordBoxKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textfieldConfirmPasswordBoxKeyReleased
         checkSaveEligibility();
     }//GEN-LAST:event_textfieldConfirmPasswordBoxKeyReleased
+
+    private void checkboxShowPasswordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordsActionPerformed
+        boolean showPasswords = this.checkboxShowPasswords.isSelected();
+        this.textfieldPasswordBox.setEchoChar(showPasswords ? '\u0000' : '\u25cf');
+        this.textfieldConfirmPasswordBox.setEchoChar(showPasswords ? '\u0000' : '\u25cf');
+    }//GEN-LAST:event_checkboxShowPasswordsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -250,6 +275,7 @@ public class NewUser extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonCreateNewUser;
+    private javax.swing.JCheckBox checkboxShowPasswords;
     private javax.swing.JLabel labelConfirmPasswordBox;
     private javax.swing.JLabel labelPasswordBox;
     private javax.swing.JLabel labelPasswordIcon;
@@ -285,7 +311,15 @@ public class NewUser extends javax.swing.JDialog {
     }
 
     private void CreateNewUser() {
+        String username = this.textfieldUsernameBox.getText().trim();
+        char[] inputPassword = this.textfieldPasswordBox.getPassword();
+        byte[] salt = PasswordUtilities.generateSalt();
         
+        String securePassword = PasswordUtilities.generateSecurePassword(Arrays.toString(inputPassword), salt);
+        
+        User user = new User(username, securePassword, salt);
+        this.storage.addUser(user);
+        this.dispose();
     }
     
 }
