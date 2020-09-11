@@ -13,15 +13,17 @@ import data.User;
  */
 public class Main extends javax.swing.JFrame {
     
-    private User loggedInUser = null;
+    private final Main menuParent = this;
+    public User loggedInUser = null;
 
     /**
      * Creates new form Main
      */
     public Main() {
         Login login = new Login(null, true);
-        login.setReferences(loggedInUser);
+        login.setReferences(menuParent);
         login.setVisible(true);
+        this.setTitle("Logged in as: " + this.loggedInUser.getUsername());
         initComponents();
     }
 

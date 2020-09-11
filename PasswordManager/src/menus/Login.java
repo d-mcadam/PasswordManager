@@ -19,8 +19,8 @@ import utilities.PasswordUtilities;
  */
 public class Login extends javax.swing.JDialog {
 
-    private User loggingInUser;
-    private Storage storage;
+    private final Storage storage;
+    private Main menuParent;
 
     /**
      * Creates new form Login
@@ -244,10 +244,10 @@ public class Login extends javax.swing.JDialog {
     private javax.swing.JMenu toolbarFile;
     // End of variables declaration//GEN-END:variables
 
-    public void setReferences(User user){
-        this.loggingInUser = user;
+    public void setReferences(Main parent) {
+        this.menuParent = parent;
     }
-
+    
     private void UserLogin() {
         this.labelErrorMessage.setSize(new Dimension(this.labelErrorMessage.getWidth(), 0));
         
@@ -258,15 +258,15 @@ public class Login extends javax.swing.JDialog {
             if (user.getUsername().equals(username)){
                 
                 String securePassword = PasswordUtilities.generateSecurePassword(Arrays.toString(password), user.getSalt());
-                if (securePassword.equals(user.getSecurePassword()))
-                    this.loggingInUser = user;
+                if (securePassword.equals(user.getSecurePassword())){
+                    this.menuParent.loggedInUser = user;
+                    this.dispose();
+                }
                 
                 break;
             }
         
-        if (loggingInUser != null)
-            this.dispose();
-        else
-            this.labelErrorMessage.setSize(new Dimension(this.labelErrorMessage.getWidth(), 30));
+        this.labelErrorMessage.setSize(new Dimension(this.labelErrorMessage.getWidth(), 30));
     }
+
 }
