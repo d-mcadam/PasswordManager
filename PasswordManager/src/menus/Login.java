@@ -7,8 +7,11 @@ package menus;
 
 import data.Storage;
 import data.User;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Arrays;
+import utilities.PasswordUtilities;
 
 /**
  *
@@ -16,7 +19,7 @@ import java.awt.event.WindowEvent;
  */
 public class Login extends javax.swing.JDialog {
 
-    private User user;
+    private User loggingInUser;
     private Storage storage;
 
     /**
@@ -61,11 +64,28 @@ public class Login extends javax.swing.JDialog {
         labelUsernameBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelUsernameBox.setText("Username:");
 
+        textfieldUsernameBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameBoxFocusGained(evt);
+            }
+        });
+
         labelPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPasswordBox.setText("Password:");
 
+        textfieldPasswordBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldPasswordBoxFocusGained(evt);
+            }
+        });
+
         buttonLogin.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buttonLogin.setText("Login");
+        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLoginActionPerformed(evt);
+            }
+        });
 
         labelErrorMessage.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
@@ -140,7 +160,7 @@ public class Login extends javax.swing.JDialog {
                 .addComponent(buttonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(labelErrorMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addGap(50, 50, 50))
         );
 
         pack();
@@ -155,6 +175,18 @@ public class Login extends javax.swing.JDialog {
     private void checkboxShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordActionPerformed
         this.textfieldPasswordBox.setEchoChar(this.checkboxShowPassword.isSelected() ? '\u0000' : '\u25cf');
     }//GEN-LAST:event_checkboxShowPasswordActionPerformed
+
+    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
+        UserLogin();
+    }//GEN-LAST:event_buttonLoginActionPerformed
+
+    private void textfieldUsernameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxFocusGained
+        this.textfieldUsernameBox.selectAll();
+    }//GEN-LAST:event_textfieldUsernameBoxFocusGained
+
+    private void textfieldPasswordBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordBoxFocusGained
+        this.textfieldPasswordBox.selectAll();
+    }//GEN-LAST:event_textfieldPasswordBoxFocusGained
 
     /**
      * @param args the command line arguments
@@ -213,7 +245,28 @@ public class Login extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public void setReferences(User user){
-        this.user = user;
+        this.loggingInUser = user;
     }
+
+    private void UserLogin() {
+        this.labelErrorMessage.setSize(new Dimension(this.labelErrorMessage.getWidth(), 0));
+        
+        String username = this.textfieldUsernameBox.getText().trim();
+        char[] password = this.textfieldPasswordBox.getPassword();
     
+        for (User user : storage.getUsers())
+            if (user.getUsername().equals(username)){
+                
+                String securePassword = PasswordUtilities.generateSecurePassword(Arrays.toString(password), user.getSalt());
+                if (securePassword.equals(user.getSecurePassword()))
+                    this.loggingInUser = user;
+                
+                break;
+            }
+        
+        if (loggingInUser != null)
+            this.dispose();
+        else
+            this.labelErrorMessage.setSize(new Dimension(this.labelErrorMessage.getWidth(), 30));
+    }
 }
