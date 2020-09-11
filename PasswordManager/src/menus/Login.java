@@ -47,6 +47,7 @@ public class Login extends javax.swing.JDialog {
         textfieldPasswordBox = new javax.swing.JPasswordField();
         buttonLogin = new javax.swing.JButton();
         labelErrorMessage = new javax.swing.JLabel();
+        checkboxShowPassword = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         toolbarFile = new javax.swing.JMenu();
         fileCreateUser = new javax.swing.JMenuItem();
@@ -70,6 +71,13 @@ public class Login extends javax.swing.JDialog {
         labelErrorMessage.setForeground(new java.awt.Color(255, 0, 0));
         labelErrorMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelErrorMessage.setText("Username or Password incorrect");
+
+        checkboxShowPassword.setText("Show password");
+        checkboxShowPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxShowPasswordActionPerformed(evt);
+            }
+        });
 
         toolbarFile.setText("File");
 
@@ -103,7 +111,8 @@ public class Login extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(checkboxShowPassword))
                         .addContainerGap(25, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -125,6 +134,8 @@ public class Login extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPasswordBox)
                     .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkboxShowPassword)
                 .addGap(25, 25, 25)
                 .addComponent(buttonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
@@ -140,6 +151,10 @@ public class Login extends javax.swing.JDialog {
         newUser.setReferences(storage);
         newUser.setVisible(true);
     }//GEN-LAST:event_fileCreateUserActionPerformed
+
+    private void checkboxShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordActionPerformed
+        this.textfieldPasswordBox.setEchoChar(this.checkboxShowPassword.isSelected() ? '\u0000' : '\u25cf');
+    }//GEN-LAST:event_checkboxShowPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,6 +200,7 @@ public class Login extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonLogin;
+    private javax.swing.JCheckBox checkboxShowPassword;
     private javax.swing.JMenuItem fileCreateUser;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JLabel labelErrorMessage;

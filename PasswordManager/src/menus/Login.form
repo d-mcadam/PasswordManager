@@ -64,6 +64,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="textfieldUsernameBox" min="-2" pref="200" max="-2" attributes="0"/>
                           <Component id="textfieldPasswordBox" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="checkboxShowPassword" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="25" max="32767" attributes="0"/>
                   </Group>
@@ -94,6 +95,8 @@
                   <Component id="labelPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textfieldPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="checkboxShowPassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="buttonLogin" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
@@ -152,6 +155,14 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Username or Password incorrect"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkboxShowPassword">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Show password"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxShowPasswordActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
