@@ -5,6 +5,7 @@
  */
 package menus;
 
+import data.Record;
 import data.User;
 import java.util.Arrays;
 import javax.swing.UIManager;
@@ -97,6 +98,11 @@ public class NewAccount extends javax.swing.JDialog {
         buttonCreateRecord.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buttonCreateRecord.setText("Create");
         buttonCreateRecord.setEnabled(false);
+        buttonCreateRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreateRecordActionPerformed(evt);
+            }
+        });
 
         buttonCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         buttonCancel.setText("Cancel");
@@ -208,6 +214,10 @@ public class NewAccount extends javax.swing.JDialog {
         this.textfieldPasswordBox.setEchoChar(this.checkboxShowPassword.isSelected() ? '\u0000' : '\u25cf');
     }//GEN-LAST:event_checkboxShowPasswordActionPerformed
 
+    private void buttonCreateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateRecordActionPerformed
+        createNewAccount();
+    }//GEN-LAST:event_buttonCreateRecordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -282,6 +292,16 @@ public class NewAccount extends javax.swing.JDialog {
                 !accountNameIsUnique ? "Account name already exists." : "Create the new record");
         
         this.labelAccountNameIcon.setIcon(!accountNameIsUnique ? ImageUtilities.getFinalIcon(UIManager.getIcon("OptionPane.errorIcon"), 27, 27) : null);
+    }
+
+    private void createNewAccount() {
+        String accountName = this.textfieldAccountTitle.getText().trim();
+        String accountUsername = this.textfieldUsernameBox.getText().trim();
+        char[] accountPassword = this.textfieldPasswordBox.getPassword();
+        
+        Record record = new Record(accountName, accountUsername, accountPassword);
+        
+        this.thisUser.addRecordObject(record);
     }
 
 }
