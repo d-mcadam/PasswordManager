@@ -42,6 +42,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="labelAccountNameIcon" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="checkboxShowPassword" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -79,6 +80,8 @@
                   <Component id="labelPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textfieldPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="checkboxShowPassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="buttonCreateRecord" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -165,6 +168,14 @@
       <Properties>
         <Property name="toolTipText" type="java.lang.String" value="Username already exists."/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkboxShowPassword">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Show password"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxShowPasswordActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

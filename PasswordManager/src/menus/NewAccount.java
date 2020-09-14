@@ -44,6 +44,7 @@ public class NewAccount extends javax.swing.JDialog {
         buttonCreateRecord = new javax.swing.JButton();
         buttonCancel = new javax.swing.JButton();
         labelAccountNameIcon = new javax.swing.JLabel();
+        checkboxShowPassword = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -107,6 +108,13 @@ public class NewAccount extends javax.swing.JDialog {
 
         labelAccountNameIcon.setToolTipText("Username already exists.");
 
+        checkboxShowPassword.setText("Show password");
+        checkboxShowPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxShowPasswordActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,7 +135,8 @@ public class NewAccount extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(textfieldAccountTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(labelAccountNameIcon)))))
+                                .addComponent(labelAccountNameIcon))
+                            .addComponent(checkboxShowPassword))))
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -155,6 +164,8 @@ public class NewAccount extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPasswordBox)
                     .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(checkboxShowPassword)
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonCreateRecord)
@@ -192,6 +203,10 @@ public class NewAccount extends javax.swing.JDialog {
     private void buttonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelActionPerformed
         this.dispose();
     }//GEN-LAST:event_buttonCancelActionPerformed
+
+    private void checkboxShowPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordActionPerformed
+        this.textfieldPasswordBox.setEchoChar(this.checkboxShowPassword.isSelected() ? '\u0000' : '\u25cf');
+    }//GEN-LAST:event_checkboxShowPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -238,6 +253,7 @@ public class NewAccount extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancel;
     private javax.swing.JButton buttonCreateRecord;
+    private javax.swing.JCheckBox checkboxShowPassword;
     private javax.swing.JLabel labelAccountNameIcon;
     private javax.swing.JLabel labelAccountTitleBox;
     private javax.swing.JLabel labelPasswordBox;
