@@ -279,7 +279,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCreateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateRecordActionPerformed
-        CreateNewAccountInfo();
+        createNewAccountInfo();
     }//GEN-LAST:event_buttonCreateRecordActionPerformed
 
     /**
@@ -350,7 +350,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField textfieldUsernameY;
     // End of variables declaration//GEN-END:variables
 
-    private void CreateNewAccountInfo() {
+    private void createNewAccountInfo() {
         NewAccount newAccount = new NewAccount(null, true);
         newAccount.setReferences(this.loggedInUser);
         newAccount.setVisible(true);

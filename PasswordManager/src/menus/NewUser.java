@@ -166,10 +166,11 @@ public class NewUser extends javax.swing.JDialog {
                 .addGap(25, 25, 25)
                 .addComponent(labelTitle)
                 .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labelUsernameBox)
-                    .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelUsernameIcon))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelUsernameIcon)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(labelUsernameBox)
+                        .addComponent(textfieldUsernameBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelPasswordBox)
@@ -198,7 +199,7 @@ public class NewUser extends javax.swing.JDialog {
     }//GEN-LAST:event_buttonCancelActionPerformed
 
     private void buttonCreateNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateNewUserActionPerformed
-        CreateNewUser();
+        createNewUser();
     }//GEN-LAST:event_buttonCreateNewUserActionPerformed
 
     private void textfieldUsernameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxFocusGained
@@ -311,7 +312,7 @@ public class NewUser extends javax.swing.JDialog {
         this.labelPasswordIcon.setIcon(!passwordsMatch ? ImageUtilities.getFinalIcon(UIManager.getIcon("OptionPane.errorIcon"), 27, 27) : null);
     }
 
-    private void CreateNewUser() {
+    private void createNewUser() {
         String username = this.textfieldUsernameBox.getText().trim();
         char[] inputPassword = this.textfieldPasswordBox.getPassword();
         byte[] salt = PasswordUtilities.generateSalt();
