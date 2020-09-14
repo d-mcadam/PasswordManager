@@ -116,18 +116,21 @@ public class Main extends javax.swing.JFrame {
         labelPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPasswordBox.setText("Password:");
 
+        textfieldAccountTitle.setEditable(false);
         textfieldAccountTitle.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textfieldAccountTitleFocusGained(evt);
             }
         });
 
+        textfieldUsernameBox.setEditable(false);
         textfieldUsernameBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textfieldUsernameBoxFocusGained(evt);
             }
         });
 
+        textfieldPasswordBox.setEditable(false);
         textfieldPasswordBox.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 textfieldPasswordBoxFocusGained(evt);

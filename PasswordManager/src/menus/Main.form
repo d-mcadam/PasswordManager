@@ -277,16 +277,25 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldAccountTitle">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldAccountTitleFocusGained"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldUsernameBox">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldUsernameBoxFocusGained"/>
       </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="textfieldPasswordBox">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
       <Events>
         <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldPasswordBoxFocusGained"/>
       </Events>
