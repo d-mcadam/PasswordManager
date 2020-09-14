@@ -112,7 +112,7 @@ public class NewAccount extends javax.swing.JDialog {
             }
         });
 
-        labelAccountNameIcon.setToolTipText("Username already exists.");
+        labelAccountNameIcon.setToolTipText("Account name already exists.");
 
         checkboxShowPassword.setText("Show password");
         checkboxShowPassword.addActionListener(new java.awt.event.ActionListener() {

@@ -169,7 +169,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labelAccountNameIcon">
       <Properties>
-        <Property name="toolTipText" type="java.lang.String" value="Username already exists."/>
+        <Property name="toolTipText" type="java.lang.String" value="Account name already exists."/>
       </Properties>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkboxShowPassword">
