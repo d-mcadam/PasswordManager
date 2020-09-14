@@ -16,7 +16,7 @@ public class Record {
     private String title = "";
     private String username = "";
     private String password = "";
-    private final Calendar date = Calendar.getInstance();;
+    public final Calendar createdDate = Calendar.getInstance();;
     private int usernameX = 0;
     private int usernameY = 0;
     private int passwordX = 0;
