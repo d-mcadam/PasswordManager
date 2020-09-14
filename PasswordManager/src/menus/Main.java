@@ -6,6 +6,7 @@
 package menus;
 
 import data.User;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -14,16 +15,21 @@ import data.User;
 public class Main extends javax.swing.JFrame {
     
     private final Main menuParent = this;
-    public User loggedInUser = null;
+    public User currentUser = null;
+    
+    private DefaultListModel accountInfoListModel = new DefaultListModel();
 
     /**
      * Creates new form Main
      */
     public Main() {
+        //<editor-fold defaultstate="collapsed" desc="Generate the login dialog">
         Login login = new Login(null, true);
         login.setReferences(menuParent);
         login.setVisible(true);
-        this.setTitle("Logged in as: " + this.loggedInUser.getUsername());
+        this.setTitle("Logged in as: " + this.currentUser.getUsername());
+        //</editor-fold>
+        this.accountInfoListModel = new DefaultListModel();
         initComponents();
         this.textfieldPasswordBox.setEchoChar('\u25cf');
     }
@@ -82,11 +88,7 @@ public class Main extends javax.swing.JFrame {
         buttonDeleteRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonDeleteRecord.setText("Delete");
 
-        listAccounts.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        listAccounts.setModel(accountInfoListModel);
         scrollpaneAccountList.setViewportView(listAccounts);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -279,7 +281,9 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonCreateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateRecordActionPerformed
-        createNewAccountInfo();
+        NewAccount newAccount = new NewAccount(null, true);
+        newAccount.setReferences(menuParent, this.currentUser);
+        newAccount.setVisible(true);
     }//GEN-LAST:event_buttonCreateRecordActionPerformed
 
     /**
@@ -350,10 +354,11 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField textfieldUsernameY;
     // End of variables declaration//GEN-END:variables
 
-    private void createNewAccountInfo() {
-        NewAccount newAccount = new NewAccount(null, true);
-        newAccount.setReferences(this.loggedInUser);
-        newAccount.setVisible(true);
+    public void refreshList(){
+        this.accountInfoListModel.clear();
+        
+        this.currentUser.getRecordObjects().forEach(record -> 
+                this.accountInfoListModel.addElement(record.getTitle()));
     }
     
 }

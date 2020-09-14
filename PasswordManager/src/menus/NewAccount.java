@@ -17,6 +17,7 @@ import utilities.ImageUtilities;
  */
 public class NewAccount extends javax.swing.JDialog {
     
+    private Main menuParent;
     private User thisUser;
 
     /**
@@ -274,7 +275,8 @@ public class NewAccount extends javax.swing.JDialog {
     private javax.swing.JTextField textfieldUsernameBox;
     // End of variables declaration//GEN-END:variables
 
-    public void setReferences(User loggedInUser) {
+    public void setReferences(Main menuParent, User loggedInUser) {
+        this.menuParent = menuParent;
         thisUser = loggedInUser;
     }
     
@@ -302,6 +304,8 @@ public class NewAccount extends javax.swing.JDialog {
         Record record = new Record(accountName, accountUsername, accountPassword);
         
         this.thisUser.addRecordObject(record);
+        this.menuParent.refreshList();
+        this.dispose();
     }
 
 }

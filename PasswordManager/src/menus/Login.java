@@ -259,7 +259,7 @@ public class Login extends javax.swing.JDialog {
                 
                 String securePassword = PasswordUtilities.generateSecurePassword(Arrays.toString(password), user.getSalt());
                 if (securePassword.equals(user.getSecurePassword())){
-                    this.menuParent.loggedInUser = user;
+                    this.menuParent.currentUser = user;
                     this.dispose();
                 }
                 
