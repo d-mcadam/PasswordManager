@@ -5,7 +5,9 @@
  */
 package menus;
 
+import data.Record;
 import data.User;
+import java.text.SimpleDateFormat;
 import javax.swing.DefaultListModel;
 
 /**
@@ -32,6 +34,7 @@ public class Main extends javax.swing.JFrame {
         this.accountInfoListModel = new DefaultListModel();
         initComponents();
         this.textfieldPasswordBox.setEchoChar('\u25cf');
+        this.refreshList();
     }
 
     /**
@@ -89,6 +92,11 @@ public class Main extends javax.swing.JFrame {
         buttonDeleteRecord.setText("Delete");
 
         listAccounts.setModel(accountInfoListModel);
+        listAccounts.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listAccountsValueChanged(evt);
+            }
+        });
         scrollpaneAccountList.setViewportView(listAccounts);
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -131,10 +139,13 @@ public class Main extends javax.swing.JFrame {
         labelDisplayCreatedDate.setToolTipText("The date this record was created");
 
         buttonTypeUsername.setText("Type");
+        buttonTypeUsername.setEnabled(false);
 
         buttonTypePassword.setText("Type");
+        buttonTypePassword.setEnabled(false);
 
         buttonTypeBoth.setText("Type both");
+        buttonTypeBoth.setEnabled(false);
 
         labelCoordinatesSection.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelCoordinatesSection.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -352,6 +363,10 @@ public class Main extends javax.swing.JFrame {
         this.textFieldPasswordY.selectAll();
     }//GEN-LAST:event_textFieldPasswordYFocusGained
 
+    private void listAccountsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAccountsValueChanged
+        accountListValueChanged();
+    }//GEN-LAST:event_listAccountsValueChanged
+
     /**
      * @param args the command line arguments
      */
@@ -425,6 +440,30 @@ public class Main extends javax.swing.JFrame {
         
         this.currentUser.getRecordObjects().forEach(record -> 
                 this.accountInfoListModel.addElement(record.getTitle()));
+    }
+
+    private void accountListValueChanged() {
+        this.labelDisplayCreatedDate.setText("DD / MM / YY");
+        this.textfieldAccountTitle.setText("");
+        this.textfieldUsernameBox.setText("");
+        this.textfieldPasswordBox.setText("");
+        
+        int position = this.listAccounts.getSelectedIndex();
+        if (position < 0)
+            return;
+        
+        Record record = this.currentUser.getRecordObjects().get(position);
+        
+        this.labelDisplayCreatedDate.setText(new SimpleDateFormat("dd-MM-yy").format(record.createdDate.getTime()));
+        
+        this.textfieldAccountTitle.setText(record.getTitle());
+        this.textfieldUsernameBox.setText(record.getUsername());
+        this.textfieldPasswordBox.setText(record.getPassword());
+        
+        this.textfieldUsernameX.setText(String.valueOf(record.getUX()));
+        this.textfieldUsernameY.setText(String.valueOf(record.getUY()));
+        this.textfieldPasswordX.setText(String.valueOf(record.getPX()));
+        this.textFieldPasswordY.setText(String.valueOf(record.getPY()));
     }
     
 }
