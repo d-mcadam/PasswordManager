@@ -108,6 +108,24 @@ public class Main extends javax.swing.JFrame {
         labelPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPasswordBox.setText("Password:");
 
+        textfieldAccountTitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldAccountTitleFocusGained(evt);
+            }
+        });
+
+        textfieldUsernameBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameBoxFocusGained(evt);
+            }
+        });
+
+        textfieldPasswordBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldPasswordBoxFocusGained(evt);
+            }
+        });
+
         labelDisplayCreatedDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDisplayCreatedDate.setText("DD / MM / YY");
         labelDisplayCreatedDate.setToolTipText("The date this record was created");
@@ -138,15 +156,35 @@ public class Main extends javax.swing.JFrame {
 
         textfieldUsernameX.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textfieldUsernameX.setText("0000");
+        textfieldUsernameX.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameXFocusGained(evt);
+            }
+        });
 
         textfieldUsernameY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textfieldUsernameY.setText("0000");
+        textfieldUsernameY.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameYFocusGained(evt);
+            }
+        });
 
         textfieldPasswordX.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textfieldPasswordX.setText("0000");
+        textfieldPasswordX.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldPasswordXFocusGained(evt);
+            }
+        });
 
         textFieldPasswordY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldPasswordY.setText("0000");
+        textFieldPasswordY.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textFieldPasswordYFocusGained(evt);
+            }
+        });
 
         checkboxLockRecordCoordinates.setText("<html>Lock all coordinates<br>(Only for this record)</html>");
 
@@ -285,6 +323,34 @@ public class Main extends javax.swing.JFrame {
         newAccount.setReferences(menuParent, this.currentUser);
         newAccount.setVisible(true);
     }//GEN-LAST:event_buttonCreateRecordActionPerformed
+
+    private void textfieldAccountTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldAccountTitleFocusGained
+        this.textfieldAccountTitle.selectAll();
+    }//GEN-LAST:event_textfieldAccountTitleFocusGained
+
+    private void textfieldUsernameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxFocusGained
+        this.textfieldUsernameBox.selectAll();
+    }//GEN-LAST:event_textfieldUsernameBoxFocusGained
+
+    private void textfieldPasswordBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordBoxFocusGained
+        this.textfieldPasswordBox.selectAll();
+    }//GEN-LAST:event_textfieldPasswordBoxFocusGained
+
+    private void textfieldUsernameXFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameXFocusGained
+        this.textfieldUsernameX.selectAll();
+    }//GEN-LAST:event_textfieldUsernameXFocusGained
+
+    private void textfieldUsernameYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameYFocusGained
+        this.textfieldUsernameY.selectAll();
+    }//GEN-LAST:event_textfieldUsernameYFocusGained
+
+    private void textfieldPasswordXFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordXFocusGained
+        this.textfieldPasswordX.selectAll();
+    }//GEN-LAST:event_textfieldPasswordXFocusGained
+
+    private void textFieldPasswordYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldPasswordYFocusGained
+        this.textFieldPasswordY.selectAll();
+    }//GEN-LAST:event_textFieldPasswordYFocusGained
 
     /**
      * @param args the command line arguments
