@@ -23,15 +23,21 @@ public class Record {
     private int passwordY = 0;
     private boolean coordiantesLocked = false;
     
-    public Record(String title, String username, String password, int ux, int uy, int px, int py, boolean locked){
+    public Record(String title, String username, String password){
         this.title = title;
         this.username = username;
         this.password = password;
-        this.usernameX = ux;
-        this.usernameY = uy;
-        this.passwordX = px;
-        this.passwordY = py;
-        this.coordiantesLocked = locked;
+    }
+    
+    public Record(String title, String username, char[] password){
+        this.title = title;
+        this.username = username;
+        
+        StringBuilder sb = new StringBuilder();
+        for (char c : password)
+            sb.append(c);
+        
+        this.password = sb.toString();
     }
     
     public void setTitle(String title){ this.title = title; }
