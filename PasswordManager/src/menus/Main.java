@@ -87,9 +87,11 @@ public class Main extends javax.swing.JFrame {
 
         buttonEditRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonEditRecord.setText("Edit");
+        buttonEditRecord.setEnabled(false);
 
         buttonDeleteRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonDeleteRecord.setText("Delete");
+        buttonDeleteRecord.setEnabled(false);
 
         listAccounts.setModel(accountInfoListModel);
         listAccounts.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -451,13 +453,25 @@ public class Main extends javax.swing.JFrame {
         this.textfieldUsernameBox.setText("");
         this.textfieldPasswordBox.setText("");
         
+        this.buttonDeleteRecord.setEnabled(false);
+        this.buttonEditRecord.setEnabled(false);
+        this.buttonTypeUsername.setEnabled(false);
+        this.buttonTypePassword.setEnabled(false);
+        this.buttonTypeBoth.setEnabled(false);
+        
         int position = this.listAccounts.getSelectedIndex();
         if (position < 0)
             return;
         
+        this.buttonDeleteRecord.setEnabled(true);
+        this.buttonEditRecord.setEnabled(true);
+        this.buttonTypeUsername.setEnabled(true);
+        this.buttonTypePassword.setEnabled(true);
+        this.buttonTypeBoth.setEnabled(true);
+        
         Record record = this.currentUser.getRecordObjects().get(position);
         
-        this.labelDisplayCreatedDate.setText(new SimpleDateFormat("dd-MM-yy").format(record.createdDate.getTime()));
+        this.labelDisplayCreatedDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(record.createdDate.getTime()));
         
         this.textfieldAccountTitle.setText(record.getTitle());
         this.textfieldUsernameBox.setText(record.getUsername());
