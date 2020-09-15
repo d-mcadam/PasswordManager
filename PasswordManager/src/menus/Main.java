@@ -115,6 +115,11 @@ public class Main extends javax.swing.JFrame {
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         checkboxShowPasswords.setText("Show passwords");
+        checkboxShowPasswords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxShowPasswordsActionPerformed(evt);
+            }
+        });
 
         checkboxDisableAutotypeConfirmation.setText("Disable Auto-Type confirmation");
 
@@ -392,6 +397,10 @@ public class Main extends javax.swing.JFrame {
         newAccount.setReferences(menuParent, this.currentUser, this.currentUser.getRecordObjects().get(this.listAccounts.getSelectedIndex()));
         newAccount.setVisible(true);
     }//GEN-LAST:event_buttonEditRecordActionPerformed
+
+    private void checkboxShowPasswordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordsActionPerformed
+        this.textfieldPasswordBox.setEchoChar(this.checkboxShowPasswords.isSelected() ? '\u0000' : '\u25cf');
+    }//GEN-LAST:event_checkboxShowPasswordsActionPerformed
 
     /**
      * @param args the command line arguments
