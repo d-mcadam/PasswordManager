@@ -9,6 +9,7 @@ import data.Record;
 import data.User;
 import java.text.SimpleDateFormat;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -92,6 +93,11 @@ public class Main extends javax.swing.JFrame {
         buttonDeleteRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonDeleteRecord.setText("Delete");
         buttonDeleteRecord.setEnabled(false);
+        buttonDeleteRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteRecordActionPerformed(evt);
+            }
+        });
 
         listAccounts.setModel(accountInfoListModel);
         listAccounts.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -372,6 +378,10 @@ public class Main extends javax.swing.JFrame {
         accountListValueChanged();
     }//GEN-LAST:event_listAccountsValueChanged
 
+    private void buttonDeleteRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteRecordActionPerformed
+        deleteSelectedEntry();
+    }//GEN-LAST:event_buttonDeleteRecordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -481,6 +491,15 @@ public class Main extends javax.swing.JFrame {
         this.textfieldUsernameY.setText(String.valueOf(record.getUY()));
         this.textfieldPasswordX.setText(String.valueOf(record.getPX()));
         this.textFieldPasswordY.setText(String.valueOf(record.getPY()));
+    }
+
+    private void deleteSelectedEntry() {
+        Record record = this.currentUser.getRecordObjects().get(this.listAccounts.getSelectedIndex());
+        if (JOptionPane.showConfirmDialog(menuParent, "Are you sure you want to delete: " + record.getTitle(), "Delete Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE)
+                == JOptionPane.YES_OPTION){
+            this.currentUser.deleteRecordObject(record);
+            this.refreshList();
+        }
     }
     
 }
