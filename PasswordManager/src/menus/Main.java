@@ -73,7 +73,7 @@ public class Main extends javax.swing.JFrame {
         textfieldUsernameX = new javax.swing.JTextField();
         textfieldUsernameY = new javax.swing.JTextField();
         textfieldPasswordX = new javax.swing.JTextField();
-        textFieldPasswordY = new javax.swing.JTextField();
+        textfieldPasswordY = new javax.swing.JTextField();
         checkboxLockRecordCoordinates = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -210,15 +210,20 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        textFieldPasswordY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        textFieldPasswordY.setText("0000");
-        textFieldPasswordY.addFocusListener(new java.awt.event.FocusAdapter() {
+        textfieldPasswordY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        textfieldPasswordY.setText("0000");
+        textfieldPasswordY.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                textFieldPasswordYFocusGained(evt);
+                textfieldPasswordYFocusGained(evt);
             }
         });
 
         checkboxLockRecordCoordinates.setText("<html>Lock all coordinates<br>(Only for this record)</html>");
+        checkboxLockRecordCoordinates.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkboxLockRecordCoordinatesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,7 +281,7 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(labelYPointColumn, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                                     .addComponent(textfieldUsernameY)
-                                    .addComponent(textFieldPasswordY))
+                                    .addComponent(textfieldPasswordY))
                                 .addGap(18, 18, 18)
                                 .addComponent(checkboxLockRecordCoordinates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(checkboxShowPasswords))
@@ -302,6 +307,7 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(checkboxAutoUseCoordinates)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollpaneAccountList, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -330,7 +336,7 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(labelXPointColumn)
                             .addComponent(labelYPointColumn))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelUsernamePoint)
@@ -340,10 +346,9 @@ public class Main extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelPasswordPoint)
                                     .addComponent(textfieldPasswordX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textFieldPasswordY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(checkboxLockRecordCoordinates)))
-                    .addComponent(scrollpaneAccountList, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25))
+                                    .addComponent(textfieldPasswordY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(checkboxLockRecordCoordinates, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(17, 17, 17))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
@@ -380,9 +385,9 @@ public class Main extends javax.swing.JFrame {
         this.textfieldPasswordX.selectAll();
     }//GEN-LAST:event_textfieldPasswordXFocusGained
 
-    private void textFieldPasswordYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldPasswordYFocusGained
-        this.textFieldPasswordY.selectAll();
-    }//GEN-LAST:event_textFieldPasswordYFocusGained
+    private void textfieldPasswordYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordYFocusGained
+        this.textfieldPasswordY.selectAll();
+    }//GEN-LAST:event_textfieldPasswordYFocusGained
 
     private void listAccountsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAccountsValueChanged
         accountListValueChanged();
@@ -401,6 +406,10 @@ public class Main extends javax.swing.JFrame {
     private void checkboxShowPasswordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxShowPasswordsActionPerformed
         this.textfieldPasswordBox.setEchoChar(this.checkboxShowPasswords.isSelected() ? '\u0000' : '\u25cf');
     }//GEN-LAST:event_checkboxShowPasswordsActionPerformed
+
+    private void checkboxLockRecordCoordinatesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkboxLockRecordCoordinatesActionPerformed
+        checkLockedState();
+    }//GEN-LAST:event_checkboxLockRecordCoordinatesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -461,10 +470,10 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel labelYPointColumn;
     private javax.swing.JList<String> listAccounts;
     private javax.swing.JScrollPane scrollpaneAccountList;
-    private javax.swing.JTextField textFieldPasswordY;
     private javax.swing.JTextField textfieldAccountTitle;
     private javax.swing.JPasswordField textfieldPasswordBox;
     private javax.swing.JTextField textfieldPasswordX;
+    private javax.swing.JTextField textfieldPasswordY;
     private javax.swing.JTextField textfieldUsernameBox;
     private javax.swing.JTextField textfieldUsernameX;
     private javax.swing.JTextField textfieldUsernameY;
@@ -477,7 +486,7 @@ public class Main extends javax.swing.JFrame {
                 this.accountInfoListModel.addElement(record.getTitle()));
     }
 
-    private void accountListValueChanged(){
+    private void resetMenu(){
         this.labelDisplayCreatedDate.setText("DD / MM / YY");
         this.textfieldAccountTitle.setText("");
         this.textfieldUsernameBox.setText("");
@@ -488,6 +497,15 @@ public class Main extends javax.swing.JFrame {
         this.buttonTypeUsername.setEnabled(false);
         this.buttonTypePassword.setEnabled(false);
         this.buttonTypeBoth.setEnabled(false);
+        
+        this.checkboxLockRecordCoordinates.setSelected(false);
+        this.textfieldUsernameX.setEnabled(true);
+        this.textfieldUsernameY.setEnabled(true);
+        this.textfieldPasswordX.setEnabled(true);
+        this.textfieldPasswordY.setEnabled(true);
+    }
+    private void accountListValueChanged(){
+        resetMenu();
         
         int position = this.listAccounts.getSelectedIndex();
         if (position < 0)
@@ -510,7 +528,10 @@ public class Main extends javax.swing.JFrame {
         this.textfieldUsernameX.setText(String.valueOf(record.getUX()));
         this.textfieldUsernameY.setText(String.valueOf(record.getUY()));
         this.textfieldPasswordX.setText(String.valueOf(record.getPX()));
-        this.textFieldPasswordY.setText(String.valueOf(record.getPY()));
+        this.textfieldPasswordY.setText(String.valueOf(record.getPY()));
+        
+        this.checkboxLockRecordCoordinates.setSelected(record.getLockedState());
+        this.checkLockedState();
     }
 
     private void deleteSelectedEntry(){
@@ -520,6 +541,21 @@ public class Main extends javax.swing.JFrame {
             this.currentUser.deleteRecordObject(record);
             this.refreshList();
         }
+    }
+
+    private void checkLockedState() {
+        if (this.listAccounts.getSelectedIndex() < 0)
+            return;
+        
+        Record r = this.currentUser.getRecordObjects().get(this.listAccounts.getSelectedIndex());
+        r.setLockedState(this.checkboxLockRecordCoordinates.isSelected());
+        
+        boolean recordLocked = !r.getLockedState();
+        
+        this.textfieldUsernameX.setEnabled(recordLocked);
+        this.textfieldUsernameY.setEnabled(recordLocked);
+        this.textfieldPasswordX.setEnabled(recordLocked);
+        this.textfieldPasswordY.setEnabled(recordLocked);
     }
 
 }
