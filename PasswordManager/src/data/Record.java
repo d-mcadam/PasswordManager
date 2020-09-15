@@ -47,6 +47,12 @@ public class Record {
     public String getUsername(){ return this.username; }
     
     public void setPassword(String password){ this.password = password; }
+    public void setPassword(char[] password){
+        StringBuilder sb = new StringBuilder();
+        for (char c : password)
+            sb.append(c);
+        this.password = sb.toString();
+    }
     public String getPassword(){ return this.password; }
     
     public void setUX(int ux){ this.usernameX = ux; }
