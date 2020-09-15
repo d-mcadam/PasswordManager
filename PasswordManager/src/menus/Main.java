@@ -89,6 +89,11 @@ public class Main extends javax.swing.JFrame {
         buttonEditRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonEditRecord.setText("Edit");
         buttonEditRecord.setEnabled(false);
+        buttonEditRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditRecordActionPerformed(evt);
+            }
+        });
 
         buttonDeleteRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonDeleteRecord.setText("Delete");
@@ -382,6 +387,12 @@ public class Main extends javax.swing.JFrame {
         deleteSelectedEntry();
     }//GEN-LAST:event_buttonDeleteRecordActionPerformed
 
+    private void buttonEditRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditRecordActionPerformed
+        NewAccount newAccount = new NewAccount(null, true);
+        newAccount.setReferences(menuParent, this.currentUser, this.currentUser.getRecordObjects().get(this.listAccounts.getSelectedIndex()));
+        newAccount.setVisible(true);
+    }//GEN-LAST:event_buttonEditRecordActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -457,7 +468,7 @@ public class Main extends javax.swing.JFrame {
                 this.accountInfoListModel.addElement(record.getTitle()));
     }
 
-    private void accountListValueChanged() {
+    private void accountListValueChanged(){
         this.labelDisplayCreatedDate.setText("DD / MM / YY");
         this.textfieldAccountTitle.setText("");
         this.textfieldUsernameBox.setText("");
@@ -493,7 +504,7 @@ public class Main extends javax.swing.JFrame {
         this.textFieldPasswordY.setText(String.valueOf(record.getPY()));
     }
 
-    private void deleteSelectedEntry() {
+    private void deleteSelectedEntry(){
         Record record = this.currentUser.getRecordObjects().get(this.listAccounts.getSelectedIndex());
         if (JOptionPane.showConfirmDialog(menuParent, "Are you sure you want to delete: " + record.getTitle(), "Delete Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE)
                 == JOptionPane.YES_OPTION){
@@ -501,5 +512,5 @@ public class Main extends javax.swing.JFrame {
             this.refreshList();
         }
     }
-    
+
 }
