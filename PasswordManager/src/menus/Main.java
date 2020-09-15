@@ -21,6 +21,8 @@ public class Main extends javax.swing.JFrame {
     public User currentUser = null;
     
     private DefaultListModel accountInfoListModel = new DefaultListModel();
+    
+    private final String confirmAutotypeText = "You are about to automatically type the Username, the next left click will denote the location to type, continue with this action?";
 
     /**
      * Creates new form Main
@@ -161,12 +163,27 @@ public class Main extends javax.swing.JFrame {
 
         buttonTypeUsername.setText("Type");
         buttonTypeUsername.setEnabled(false);
+        buttonTypeUsername.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTypeUsernameActionPerformed(evt);
+            }
+        });
 
         buttonTypePassword.setText("Type");
         buttonTypePassword.setEnabled(false);
+        buttonTypePassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTypePasswordActionPerformed(evt);
+            }
+        });
 
         buttonTypeBoth.setText("Type both");
         buttonTypeBoth.setEnabled(false);
+        buttonTypeBoth.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTypeBothActionPerformed(evt);
+            }
+        });
 
         labelCoordinatesSection.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelCoordinatesSection.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -411,6 +428,18 @@ public class Main extends javax.swing.JFrame {
         checkLockedState();
     }//GEN-LAST:event_checkboxLockRecordCoordinatesActionPerformed
 
+    private void buttonTypeUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTypeUsernameActionPerformed
+        typeOnCommand(this.textfieldUsernameBox.getText());
+    }//GEN-LAST:event_buttonTypeUsernameActionPerformed
+
+    private void buttonTypePasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTypePasswordActionPerformed
+        typeOnCommand(this.textfieldPasswordBox.getPassword());
+    }//GEN-LAST:event_buttonTypePasswordActionPerformed
+
+    private void buttonTypeBothActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTypeBothActionPerformed
+        typeBothOnCommand();
+    }//GEN-LAST:event_buttonTypeBothActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -556,6 +585,33 @@ public class Main extends javax.swing.JFrame {
         this.textfieldUsernameY.setEnabled(recordLocked);
         this.textfieldPasswordX.setEnabled(recordLocked);
         this.textfieldPasswordY.setEnabled(recordLocked);
+    }
+
+    private void typeOnCommand(char[] text){
+        StringBuilder sb = new StringBuilder();
+        
+        for (char c : text)
+            sb.append(c);
+        
+        typeOnCommand(sb.toString());
+    }
+    
+    private void typeOnCommand(String text) {
+        if (!this.checkboxDisableAutotypeConfirmation.isSelected())
+            if (JOptionPane.showConfirmDialog(menuParent, confirmAutotypeText, "Action Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)
+                    == JOptionPane.NO_OPTION)
+                return;
+        
+        //the jnative hooks will be required here
+    }
+
+    private void typeBothOnCommand() {
+        if (!this.checkboxDisableAutotypeConfirmation.isSelected())
+            if (JOptionPane.showConfirmDialog(menuParent, confirmAutotypeText, "Action Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE)
+                    == JOptionPane.NO_OPTION)
+                return;
+        
+        //the jnative hooks will be required here
     }
 
 }
