@@ -26,10 +26,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="labelTitle" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="labelTitle" pref="280" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="labelAccountTitleBox" min="-2" max="-2" attributes="0"/>
@@ -38,19 +35,24 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textfieldAccountTitle" min="-2" pref="150" max="-2" attributes="0"/>
                           <Component id="textfieldUsernameBox" min="-2" pref="150" max="-2" attributes="0"/>
                           <Component id="textfieldPasswordBox" min="-2" pref="150" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="textfieldAccountTitle" min="-2" pref="150" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="labelAccountNameIcon" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="checkboxShowPassword" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="125" max="-2" attributes="0"/>
+              <Component id="buttonCreateRecord" min="-2" pref="150" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton2" min="-2" pref="125" max="-2" attributes="0"/>
+              <Component id="buttonCancel" min="-2" pref="150" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -61,9 +63,12 @@
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="labelTitle" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="labelAccountTitleBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textfieldAccountTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="labelAccountTitleBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textfieldAccountTitle" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="labelAccountNameIcon" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -75,10 +80,12 @@
                   <Component id="labelPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="textfieldPasswordBox" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="checkboxShowPassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonCreateRecord" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="buttonCancel" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
@@ -120,26 +127,58 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldAccountTitle">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldAccountTitleFocusGained"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textfieldAccountTitleKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldUsernameBox">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldUsernameBoxFocusGained"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textfieldUsernameBoxKeyReleased"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="textfieldPasswordBox">
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldPasswordBoxFocusGained"/>
+        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textfieldPasswordBoxKeyReleased"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="buttonCreateRecord">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Create"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCreateRecordActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="buttonCancel">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Cancel"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCancelActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelAccountNameIcon">
+      <Properties>
+        <Property name="toolTipText" type="java.lang.String" value="Account name already exists."/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkboxShowPassword">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Show password"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkboxShowPasswordActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

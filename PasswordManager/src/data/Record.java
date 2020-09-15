@@ -16,22 +16,28 @@ public class Record {
     private String title = "";
     private String username = "";
     private String password = "";
-    private final Calendar date = Calendar.getInstance();;
+    public final Calendar createdDate = Calendar.getInstance();;
     private int usernameX = 0;
     private int usernameY = 0;
     private int passwordX = 0;
     private int passwordY = 0;
     private boolean coordiantesLocked = false;
     
-    public Record(String title, String username, String password, int ux, int uy, int px, int py, boolean locked){
+    public Record(String title, String username, String password){
         this.title = title;
         this.username = username;
         this.password = password;
-        this.usernameX = ux;
-        this.usernameY = uy;
-        this.passwordX = px;
-        this.passwordY = py;
-        this.coordiantesLocked = locked;
+    }
+    
+    public Record(String title, String username, char[] password){
+        this.title = title;
+        this.username = username;
+        
+        StringBuilder sb = new StringBuilder();
+        for (char c : password)
+            sb.append(c);
+        
+        this.password = sb.toString();
     }
     
     public void setTitle(String title){ this.title = title; }
@@ -41,6 +47,12 @@ public class Record {
     public String getUsername(){ return this.username; }
     
     public void setPassword(String password){ this.password = password; }
+    public void setPassword(char[] password){
+        StringBuilder sb = new StringBuilder();
+        for (char c : password)
+            sb.append(c);
+        this.password = sb.toString();
+    }
     public String getPassword(){ return this.password; }
     
     public void setUX(int ux){ this.usernameX = ux; }

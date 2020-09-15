@@ -177,7 +177,7 @@ public class Login extends javax.swing.JDialog {
     }//GEN-LAST:event_checkboxShowPasswordActionPerformed
 
     private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
-        UserLogin();
+        userLogin();
     }//GEN-LAST:event_buttonLoginActionPerformed
 
     private void textfieldUsernameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxFocusGained
@@ -248,7 +248,7 @@ public class Login extends javax.swing.JDialog {
         this.menuParent = parent;
     }
     
-    private void UserLogin() {
+    private void userLogin() {
         this.labelErrorMessage.setSize(new Dimension(this.labelErrorMessage.getWidth(), 0));
         
         String username = this.textfieldUsernameBox.getText().trim();
@@ -259,7 +259,7 @@ public class Login extends javax.swing.JDialog {
                 
                 String securePassword = PasswordUtilities.generateSecurePassword(Arrays.toString(password), user.getSalt());
                 if (securePassword.equals(user.getSecurePassword())){
-                    this.menuParent.loggedInUser = user;
+                    this.menuParent.currentUser = user;
                     this.dispose();
                 }
                 

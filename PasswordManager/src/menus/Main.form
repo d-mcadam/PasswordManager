@@ -92,10 +92,10 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="checkboxLockRecordCoordinates" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="checkboxShowPasswords" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="0" pref="22" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="checkboxShowPasswords" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -145,9 +145,12 @@
                           <Component id="buttonTypePassword" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="buttonTypeBoth" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelCoordinatesSection" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="buttonTypeBoth" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                              <Component id="labelCoordinatesSection" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -155,7 +158,7 @@
                           <Component id="labelYPointColumn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="labelUsernamePoint" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -169,7 +172,7 @@
                                   <Component id="textFieldPasswordY" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Component id="checkboxLockRecordCoordinates" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkboxLockRecordCoordinates" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="scrollpaneAccountList" min="-2" pref="230" max="-2" attributes="0"/>
@@ -188,6 +191,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="New Account Info"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCreateRecordActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonEditRecord">
       <Properties>
@@ -195,7 +201,11 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Edit"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonEditRecordActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="buttonDeleteRecord">
       <Properties>
@@ -203,7 +213,11 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Delete"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonDeleteRecordActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="scrollpaneAccountList">
 
@@ -211,16 +225,13 @@
       <SubComponents>
         <Component class="javax.swing.JList" name="listAccounts">
           <Properties>
-            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-              <StringArray count="5">
-                <StringItem index="0" value="Item 1"/>
-                <StringItem index="1" value="Item 2"/>
-                <StringItem index="2" value="Item 3"/>
-                <StringItem index="3" value="Item 4"/>
-                <StringItem index="4" value="Item 5"/>
-              </StringArray>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="accountInfoListModel" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="listAccountsValueChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -274,10 +285,28 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldAccountTitle">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldAccountTitleFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldUsernameBox">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldUsernameBoxFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JPasswordField" name="textfieldPasswordBox">
+      <Properties>
+        <Property name="editable" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldPasswordBoxFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="labelDisplayCreatedDate">
       <Properties>
@@ -291,16 +320,19 @@
     <Component class="javax.swing.JButton" name="buttonTypeUsername">
       <Properties>
         <Property name="text" type="java.lang.String" value="Type"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonTypePassword">
       <Properties>
         <Property name="text" type="java.lang.String" value="Type"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="buttonTypeBoth">
       <Properties>
         <Property name="text" type="java.lang.String" value="Type both"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="labelCoordinatesSection">
@@ -351,24 +383,36 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0000"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldUsernameXFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldUsernameY">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0000"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldUsernameYFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="textfieldPasswordX">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0000"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textfieldPasswordXFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldPasswordY">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="0000"/>
       </Properties>
+      <Events>
+        <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textFieldPasswordYFocusGained"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkboxLockRecordCoordinates">
       <Properties>

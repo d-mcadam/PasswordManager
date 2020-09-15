@@ -5,7 +5,11 @@
  */
 package menus;
 
+import data.Record;
 import data.User;
+import java.text.SimpleDateFormat;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,17 +18,24 @@ import data.User;
 public class Main extends javax.swing.JFrame {
     
     private final Main menuParent = this;
-    public User loggedInUser = null;
+    public User currentUser = null;
+    
+    private DefaultListModel accountInfoListModel = new DefaultListModel();
 
     /**
      * Creates new form Main
      */
     public Main() {
+        //<editor-fold defaultstate="collapsed" desc="Generate the login dialog">
         Login login = new Login(null, true);
         login.setReferences(menuParent);
         login.setVisible(true);
-        this.setTitle("Logged in as: " + this.loggedInUser.getUsername());
+        this.setTitle("Logged in as: " + this.currentUser.getUsername());
+        //</editor-fold>
+        this.accountInfoListModel = new DefaultListModel();
         initComponents();
+        this.textfieldPasswordBox.setEchoChar('\u25cf');
+        this.refreshList();
     }
 
     /**
@@ -69,17 +80,35 @@ public class Main extends javax.swing.JFrame {
 
         buttonCreateRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonCreateRecord.setText("New Account Info");
+        buttonCreateRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCreateRecordActionPerformed(evt);
+            }
+        });
 
         buttonEditRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonEditRecord.setText("Edit");
+        buttonEditRecord.setEnabled(false);
+        buttonEditRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditRecordActionPerformed(evt);
+            }
+        });
 
         buttonDeleteRecord.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         buttonDeleteRecord.setText("Delete");
+        buttonDeleteRecord.setEnabled(false);
+        buttonDeleteRecord.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteRecordActionPerformed(evt);
+            }
+        });
 
-        listAccounts.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        listAccounts.setModel(accountInfoListModel);
+        listAccounts.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listAccountsValueChanged(evt);
+            }
         });
         scrollpaneAccountList.setViewportView(listAccounts);
 
@@ -100,15 +129,39 @@ public class Main extends javax.swing.JFrame {
         labelPasswordBox.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPasswordBox.setText("Password:");
 
+        textfieldAccountTitle.setEditable(false);
+        textfieldAccountTitle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldAccountTitleFocusGained(evt);
+            }
+        });
+
+        textfieldUsernameBox.setEditable(false);
+        textfieldUsernameBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameBoxFocusGained(evt);
+            }
+        });
+
+        textfieldPasswordBox.setEditable(false);
+        textfieldPasswordBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldPasswordBoxFocusGained(evt);
+            }
+        });
+
         labelDisplayCreatedDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDisplayCreatedDate.setText("DD / MM / YY");
         labelDisplayCreatedDate.setToolTipText("The date this record was created");
 
         buttonTypeUsername.setText("Type");
+        buttonTypeUsername.setEnabled(false);
 
         buttonTypePassword.setText("Type");
+        buttonTypePassword.setEnabled(false);
 
         buttonTypeBoth.setText("Type both");
+        buttonTypeBoth.setEnabled(false);
 
         labelCoordinatesSection.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelCoordinatesSection.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -130,15 +183,35 @@ public class Main extends javax.swing.JFrame {
 
         textfieldUsernameX.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textfieldUsernameX.setText("0000");
+        textfieldUsernameX.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameXFocusGained(evt);
+            }
+        });
 
         textfieldUsernameY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textfieldUsernameY.setText("0000");
+        textfieldUsernameY.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldUsernameYFocusGained(evt);
+            }
+        });
 
         textfieldPasswordX.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textfieldPasswordX.setText("0000");
+        textfieldPasswordX.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textfieldPasswordXFocusGained(evt);
+            }
+        });
 
         textFieldPasswordY.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         textFieldPasswordY.setText("0000");
+        textFieldPasswordY.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textFieldPasswordYFocusGained(evt);
+            }
+        });
 
         checkboxLockRecordCoordinates.setText("<html>Lock all coordinates<br>(Only for this record)</html>");
 
@@ -200,11 +273,9 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(textfieldUsernameY)
                                     .addComponent(textFieldPasswordY))
                                 .addGap(18, 18, 18)
-                                .addComponent(checkboxLockRecordCoordinates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 22, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(checkboxShowPasswords)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(checkboxLockRecordCoordinates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(checkboxShowPasswords))
+                        .addGap(22, 22, 22)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -244,15 +315,17 @@ public class Main extends javax.swing.JFrame {
                             .addComponent(textfieldPasswordBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonTypePassword))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(buttonTypeBoth)
-                            .addComponent(labelCoordinatesSection))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(labelCoordinatesSection, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(labelXPointColumn)
                             .addComponent(labelYPointColumn))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelUsernamePoint)
@@ -263,7 +336,7 @@ public class Main extends javax.swing.JFrame {
                                     .addComponent(labelPasswordPoint)
                                     .addComponent(textfieldPasswordX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(textFieldPasswordY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(checkboxLockRecordCoordinates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(checkboxLockRecordCoordinates)))
                     .addComponent(scrollpaneAccountList, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -271,6 +344,54 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonCreateRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCreateRecordActionPerformed
+        NewAccount newAccount = new NewAccount(null, true);
+        newAccount.setReferences(menuParent, this.currentUser);
+        newAccount.setVisible(true);
+    }//GEN-LAST:event_buttonCreateRecordActionPerformed
+
+    private void textfieldAccountTitleFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldAccountTitleFocusGained
+        this.textfieldAccountTitle.selectAll();
+    }//GEN-LAST:event_textfieldAccountTitleFocusGained
+
+    private void textfieldUsernameBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameBoxFocusGained
+        this.textfieldUsernameBox.selectAll();
+    }//GEN-LAST:event_textfieldUsernameBoxFocusGained
+
+    private void textfieldPasswordBoxFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordBoxFocusGained
+        this.textfieldPasswordBox.selectAll();
+    }//GEN-LAST:event_textfieldPasswordBoxFocusGained
+
+    private void textfieldUsernameXFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameXFocusGained
+        this.textfieldUsernameX.selectAll();
+    }//GEN-LAST:event_textfieldUsernameXFocusGained
+
+    private void textfieldUsernameYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldUsernameYFocusGained
+        this.textfieldUsernameY.selectAll();
+    }//GEN-LAST:event_textfieldUsernameYFocusGained
+
+    private void textfieldPasswordXFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textfieldPasswordXFocusGained
+        this.textfieldPasswordX.selectAll();
+    }//GEN-LAST:event_textfieldPasswordXFocusGained
+
+    private void textFieldPasswordYFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldPasswordYFocusGained
+        this.textFieldPasswordY.selectAll();
+    }//GEN-LAST:event_textFieldPasswordYFocusGained
+
+    private void listAccountsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listAccountsValueChanged
+        accountListValueChanged();
+    }//GEN-LAST:event_listAccountsValueChanged
+
+    private void buttonDeleteRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteRecordActionPerformed
+        deleteSelectedEntry();
+    }//GEN-LAST:event_buttonDeleteRecordActionPerformed
+
+    private void buttonEditRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditRecordActionPerformed
+        NewAccount newAccount = new NewAccount(null, true);
+        newAccount.setReferences(menuParent, this.currentUser, this.currentUser.getRecordObjects().get(this.listAccounts.getSelectedIndex()));
+        newAccount.setVisible(true);
+    }//GEN-LAST:event_buttonEditRecordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -339,4 +460,57 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField textfieldUsernameX;
     private javax.swing.JTextField textfieldUsernameY;
     // End of variables declaration//GEN-END:variables
+
+    public void refreshList(){
+        this.accountInfoListModel.clear();
+        
+        this.currentUser.getRecordObjects().forEach(record -> 
+                this.accountInfoListModel.addElement(record.getTitle()));
+    }
+
+    private void accountListValueChanged(){
+        this.labelDisplayCreatedDate.setText("DD / MM / YY");
+        this.textfieldAccountTitle.setText("");
+        this.textfieldUsernameBox.setText("");
+        this.textfieldPasswordBox.setText("");
+        
+        this.buttonDeleteRecord.setEnabled(false);
+        this.buttonEditRecord.setEnabled(false);
+        this.buttonTypeUsername.setEnabled(false);
+        this.buttonTypePassword.setEnabled(false);
+        this.buttonTypeBoth.setEnabled(false);
+        
+        int position = this.listAccounts.getSelectedIndex();
+        if (position < 0)
+            return;
+        
+        this.buttonDeleteRecord.setEnabled(true);
+        this.buttonEditRecord.setEnabled(true);
+        this.buttonTypeUsername.setEnabled(true);
+        this.buttonTypePassword.setEnabled(true);
+        this.buttonTypeBoth.setEnabled(true);
+        
+        Record record = this.currentUser.getRecordObjects().get(position);
+        
+        this.labelDisplayCreatedDate.setText(new SimpleDateFormat("dd-MM-yyyy").format(record.createdDate.getTime()));
+        
+        this.textfieldAccountTitle.setText(record.getTitle());
+        this.textfieldUsernameBox.setText(record.getUsername());
+        this.textfieldPasswordBox.setText(record.getPassword());
+        
+        this.textfieldUsernameX.setText(String.valueOf(record.getUX()));
+        this.textfieldUsernameY.setText(String.valueOf(record.getUY()));
+        this.textfieldPasswordX.setText(String.valueOf(record.getPX()));
+        this.textFieldPasswordY.setText(String.valueOf(record.getPY()));
+    }
+
+    private void deleteSelectedEntry(){
+        Record record = this.currentUser.getRecordObjects().get(this.listAccounts.getSelectedIndex());
+        if (JOptionPane.showConfirmDialog(menuParent, "Are you sure you want to delete: " + record.getTitle(), "Delete Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE)
+                == JOptionPane.YES_OPTION){
+            this.currentUser.deleteRecordObject(record);
+            this.refreshList();
+        }
+    }
+
 }
