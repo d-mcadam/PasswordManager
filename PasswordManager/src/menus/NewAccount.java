@@ -19,6 +19,7 @@ public class NewAccount extends javax.swing.JDialog {
     
     private Main menuParent;
     private User thisUser;
+    private Record currentRecord;
 
     /**
      * Creates new form NewAccount
@@ -275,18 +276,31 @@ public class NewAccount extends javax.swing.JDialog {
     private javax.swing.JTextField textfieldUsernameBox;
     // End of variables declaration//GEN-END:variables
 
-    public void setReferences(Main menuParent, User loggedInUser) {
+    public void setReferences(Main menuParent, User loggedInUser){
         this.menuParent = menuParent;
         thisUser = loggedInUser;
     }
     
-    private void checkSaveEligibility() {
+    public void setReferences(Main menuParent, User loggedInUser, Record currentRecord){
+        setReferences(menuParent, loggedInUser);
+        this.currentRecord = currentRecord;
+        
+        this.buttonCreateRecord.setText("Save");
+        
+        this.textfieldAccountTitle.setText(currentRecord.getTitle());
+        this.textfieldUsernameBox.setText(currentRecord.getUsername());
+        this.textfieldPasswordBox.setText(currentRecord.getPassword());
+    }
+    
+    private void checkSaveEligibility(){
         String accountName = this.textfieldAccountTitle.getText().trim();
         String accountUsername = this.textfieldUsernameBox.getText().trim();
         char[] accountPassword = this.textfieldPasswordBox.getPassword();
         
         boolean textInFields = !accountName.equals("") && !accountUsername.equals("") && accountPassword.length > 0;
-        boolean accountNameIsUnique = !this.thisUser.getRecordObjects().stream().anyMatch(record -> record.getTitle().equals(accountName));
+        boolean accountNameIsUnique = this.currentRecord == null ? 
+                !this.thisUser.getRecordObjects().stream().anyMatch(record -> record.getTitle().equals(accountName)) :
+                !this.thisUser.getRecordObjects().stream().filter(record -> !record.getTitle().equals(this.currentRecord.getTitle())).anyMatch(record -> record.getTitle().equals(accountName));
         
         this.buttonCreateRecord.setEnabled(textInFields && accountNameIsUnique);
         this.buttonCreateRecord.setToolTipText(
@@ -296,14 +310,20 @@ public class NewAccount extends javax.swing.JDialog {
         this.labelAccountNameIcon.setIcon(!accountNameIsUnique ? ImageUtilities.getFinalIcon(UIManager.getIcon("OptionPane.errorIcon"), 27, 27) : null);
     }
 
-    private void createNewAccount() {
+    private void createNewAccount(){
         String accountName = this.textfieldAccountTitle.getText().trim();
         String accountUsername = this.textfieldUsernameBox.getText().trim();
         char[] accountPassword = this.textfieldPasswordBox.getPassword();
         
-        Record record = new Record(accountName, accountUsername, accountPassword);
+        if (this.currentRecord == null){
+            Record record = new Record(accountName, accountUsername, accountPassword);
+            this.thisUser.addRecordObject(record);
+        }else{
+            this.currentRecord.setTitle(accountName);
+            this.currentRecord.setUsername(accountUsername);
+            this.currentRecord.setPassword(accountPassword);
+        }
         
-        this.thisUser.addRecordObject(record);
         this.menuParent.refreshList();
         this.dispose();
     }
